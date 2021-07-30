@@ -26,7 +26,7 @@ namespace Mango.Services.ProductAPI.DbContexts
                 Name = "Samosa",
                 Price = 15,
                 Description = "Shit",
-                ImageUrl = "",
+                ImageUrl = "https://thegnatbug.blob.core.windows.net/mango/1.jpg",
                 CategoryName = "Appetizer"
             });
             
@@ -36,7 +36,27 @@ namespace Mango.Services.ProductAPI.DbContexts
                 Name = "Cup Cake",
                 Price = 18,
                 Description = "Shit",
-                ImageUrl = "",
+                ImageUrl = "https://thegnatbug.blob.core.windows.net/mango/3.jpg",
+                CategoryName = "Appetizer"
+            });
+            
+            modelBuilder.Entity<Product>().HasData(new Product
+            {
+                ProductId = 3,
+                Name = "Shawarma",
+                Price = 22,
+                Description = "Shit",
+                ImageUrl = "https://thegnatbug.blob.core.windows.net/mango/2.jpg",
+                CategoryName = "Appetizer"
+            });
+            
+            modelBuilder.Entity<Product>().HasData(new Product
+            {
+                ProductId = 4,
+                Name = "Pizza",
+                Price = 16,
+                Description = "Shit",
+                ImageUrl = "https://thegnatbug.blob.core.windows.net/mango/4.jpg",
                 CategoryName = "Appetizer"
             });
         }
