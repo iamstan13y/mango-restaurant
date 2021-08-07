@@ -66,7 +66,7 @@ namespace Mango.Services.Identity.Initializer
             };
 
             _userManager.CreateAsync(clientUser, "Qwerty123!").GetAwaiter().GetResult();
-            _userManager.AddToRoleAsync(clientUser, SD.Admin).GetAwaiter().GetResult();
+            _userManager.AddToRoleAsync(clientUser, SD.Client).GetAwaiter().GetResult();
 
             var temp2 = _userManager.AddClaimsAsync(clientUser, new Claim[] {
                 new Claim(JwtClaimTypes.Name, $"{clientUser.FirstName} {clientUser.LastName}"),
