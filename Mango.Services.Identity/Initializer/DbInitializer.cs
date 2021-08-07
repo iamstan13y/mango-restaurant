@@ -65,13 +65,13 @@ namespace Mango.Services.Identity.Initializer
                 LastName = "Customer"
             };
 
-            _userManager.CreateAsync(adminUser, "Qwerty123!").GetAwaiter().GetResult();
-            _userManager.AddToRoleAsync(adminUser, SD.Admin).GetAwaiter().GetResult();
+            _userManager.CreateAsync(clientUser, "Qwerty123!").GetAwaiter().GetResult();
+            _userManager.AddToRoleAsync(clientUser, SD.Admin).GetAwaiter().GetResult();
 
-            var temp2 = _userManager.AddClaimsAsync(adminUser, new Claim[] {
-                new Claim(JwtClaimTypes.Name, $"{adminUser.FirstName} {adminUser.LastName}"),
-                new Claim(JwtClaimTypes.GivenName, adminUser.FirstName),
-                new Claim(JwtClaimTypes.FamilyName, adminUser.LastName),
+            var temp2 = _userManager.AddClaimsAsync(clientUser, new Claim[] {
+                new Claim(JwtClaimTypes.Name, $"{clientUser.FirstName} {clientUser.LastName}"),
+                new Claim(JwtClaimTypes.GivenName, clientUser.FirstName),
+                new Claim(JwtClaimTypes.FamilyName, clientUser.LastName),
                 new Claim(JwtClaimTypes.Role, SD.Client),
             }).Result;
         }
