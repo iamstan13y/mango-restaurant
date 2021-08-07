@@ -54,6 +54,26 @@ namespace Mango.Services.Identity.Initializer
                 new Claim(JwtClaimTypes.FamilyName, adminUser.LastName),
                 new Claim(JwtClaimTypes.Role, SD.Admin),
             }).Result;
+
+            ApplicationUser clientUser = new ApplicationUser()
+            {
+                UserName = "thecustomer@gmail.com",
+                Email = "thecustomer@gmail.com",
+                EmailConfirmed = true,
+                PhoneNumber = "0771027274",
+                FirstName = "The",
+                LastName = "Customer"
+            };
+
+            _userManager.CreateAsync(adminUser, "Qwerty123!").GetAwaiter().GetResult();
+            _userManager.AddToRoleAsync(adminUser, SD.Admin).GetAwaiter().GetResult();
+
+            var temp2 = _userManager.AddClaimsAsync(adminUser, new Claim[] {
+                new Claim(JwtClaimTypes.Name, $"{adminUser.FirstName} {adminUser.LastName}"),
+                new Claim(JwtClaimTypes.GivenName, adminUser.FirstName),
+                new Claim(JwtClaimTypes.FamilyName, adminUser.LastName),
+                new Claim(JwtClaimTypes.Role, SD.Client),
+            }).Result;
         }
     }
 }
