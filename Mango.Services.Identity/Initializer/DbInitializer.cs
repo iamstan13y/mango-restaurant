@@ -1,9 +1,11 @@
-﻿using Mango.Services.Identity.DbContexts;
+﻿using IdentityModel;
+using Mango.Services.Identity.DbContexts;
 using Mango.Services.Identity.Models;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace Mango.Services.Identity.Initializer
@@ -45,6 +47,13 @@ namespace Mango.Services.Identity.Initializer
 
             _userManager.CreateAsync(adminUser, "Qwerty123!").GetAwaiter().GetResult();
             _userManager.AddToRoleAsync(adminUser, SD.Admin).GetAwaiter().GetResult();
+
+            var temp1 = _userManager.AddClaimsAsync(adminUser, new Claim[] {
+                new Claim(JwtClaimTypes.Name, $"{adminUser.FirstName} {adminUser.LastName}"),
+                new Claim(JwtClaimTypes.GivenName, adminUser.FirstName),
+                new Claim(JwtClaimTypes.FamilyName, adminUser.LastName),
+                new Claim(JwtClaimTypes.Role, SD.Admin),
+            }).Result;
         }
     }
 }
