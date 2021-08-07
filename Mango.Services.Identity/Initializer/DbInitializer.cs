@@ -38,8 +38,13 @@ namespace Mango.Services.Identity.Initializer
                 UserName = "iamstan13y@gmail.com",
                 Email = "iamstan13y@gmail.com",
                 EmailConfirmed = true,
-                PhoneNumber = "0771027274"
-            }
+                PhoneNumber = "0771027274",
+                FirstName = "Keith",
+                LastName = "Stanley"
+            };
+
+            _userManager.CreateAsync(adminUser, "Qwerty123!").GetAwaiter().GetResult();
+            _userManager.AddToRoleAsync(adminUser, SD.Admin).GetAwaiter().GetResult();
         }
     }
 }
