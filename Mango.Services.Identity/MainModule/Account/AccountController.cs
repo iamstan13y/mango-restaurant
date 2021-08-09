@@ -115,13 +115,12 @@ namespace IdentityServerHost.Quickstart.UI
 
             if (ModelState.IsValid)
             {
-
                 var result = await _signInManager.PasswordSignInAsync(model.Username, model.Password, model.RememberLogin, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
                     var user = await _userManager.FindByNameAsync(model.Username);
                     await _events.RaiseAsync(
-                        new UserLoginSuccessEvent(user.UserName, user.Id, user.UserName,
+                        new UserLoginSuccessEvent(user.UserName, user.Id, user.FirstName +" "+ user.LastName,
                         clientId: context?.Client.ClientId));
 
                     if (context != null)
