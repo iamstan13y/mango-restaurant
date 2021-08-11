@@ -35,14 +35,14 @@ namespace Mango.Services.Identity
                 new Client
                 {
                     ClientId = "client",
-                    ClientSecrets = {new Secret("Secret".Sha256())},
+                    ClientSecrets = {new Secret("secret".Sha256())},
                     AllowedGrantTypes = GrantTypes.ClientCredentials,
                     AllowedScopes = {"read", "write", "profile"}
                 },
                 new Client
                 {
                     ClientId = "mango",
-                    ClientSecrets = {new Secret("Secret".Sha256())},
+                    ClientSecrets = {new Secret("secret".Sha256())},
                     AllowedGrantTypes = GrantTypes.Code,
                     RedirectUris = { "https://localhost:44379/signin-oidc" },
                     PostLogoutRedirectUris = { "https://localhost:44379/signout-callback-oidc" },

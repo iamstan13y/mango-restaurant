@@ -33,7 +33,7 @@ namespace Mango.Web
 
             services.AddAuthentication(options =>
             {
-                options.DefaultScheme = "Scheme";
+                options.DefaultScheme = "Cookies";
                 options.DefaultChallengeScheme = "oidc";
             })
                 .AddCookie("Cookies", c => c.ExpireTimeSpan = TimeSpan.FromMinutes(10))
