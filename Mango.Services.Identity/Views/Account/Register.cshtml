@@ -41,7 +41,7 @@
                             <input type="password" class="form-control" placeholder="Password" asp-for="Password" autocomplete="off">
                         </div>
                         <div class="form-group">
-                            <label asp-for="RoleName">Role Type</label>
+                            <label asp-for="RoleName"></label>
                             <select asp-for="RoleName" class="form-control" asp-items="@(new SelectList(ViewBag.message))"></select>
                         </div>
                         <button class="btn btn-primary" name="button" value="Register">Register</button>
