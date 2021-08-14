@@ -17,7 +17,7 @@
                 </div>
 
                 <div class="card-body">
-                    <form asp-route="Login">
+                    <form asp-route="Register">
                         <input type="hidden" asp-for="ReturnUrl" />
 
                         <div class="form-group">
@@ -26,18 +26,18 @@
                         </div>
                         <div class="form-group">
                             <label asp-for="Email"></label>
-                            <input class="form-control" placeholder="Email" asp-for="Email" autofocus>
+                            <input class="form-control" placeholder="email" asp-for="Email" autofocus>
                         </div>
                         <div class="form-group">
-                            <label asp-for="FirstName">Firstname</label>
-                            <input class="form-control" placeholder="Firstname" asp-for="FirstName" autofocus>
+                            <label asp-for="FirstName"></label>
+                            <input class="form-control" placeholder="first name" asp-for="FirstName" autofocus>
                         </div>
                         <div class="form-group">
-                            <label asp-for="LastName">Lastname</label>
-                            <input class="form-control" placeholder="Lastname" asp-for="LastName" autofocus>
+                            <label asp-for="LastName"></label>
+                            <input class="form-control" placeholder="lastname" asp-for="LastName" autofocus>
                         </div>
                         <div class="form-group">
-                            <label asp-for="Password">Password</label>
+                            <label asp-for="Password"></label>
                             <input type="password" class="form-control" placeholder="Password" asp-for="Password" autocomplete="off">
                         </div>
                         <div class="form-group">
