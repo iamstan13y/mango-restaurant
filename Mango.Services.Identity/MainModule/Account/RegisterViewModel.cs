@@ -1,5 +1,4 @@
 ﻿using IdentityServerHost.Quickstart.UI;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -21,7 +20,9 @@ namespace Mango.Services.Identity.MainModule.Account
         public string Password { get; set; }
 
         public string ReturnUrl { get; set; }
-        public IEnumerable<SelectListItem> RoleName { get; set; }
+
+
+        public string RoleName { get; set; }
 
         public bool AllowRememberLogin { get; set; } = true;
         public bool EnableLocalLogin { get; set; } = true;
