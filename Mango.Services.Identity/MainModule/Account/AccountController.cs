@@ -309,7 +309,7 @@ namespace IdentityServerHost.Quickstart.UI
         private async Task<RegisterViewModel> BuildRegisterViewModelAsync(string returnUrl)
         {
             var context = await _interaction.GetAuthorizationContextAsync(returnUrl);
-            List<string> roles = new List<string>();
+            List<string> roles = new();
             roles.Add("Admin");
             roles.Add("Client");
             ViewBag.message = roles;
