@@ -1,6 +1,9 @@
+using Duende.IdentityServer.AspNetIdentity;
+using Duende.IdentityServer.Services;
 using Mango.Services.Identity.DbContexts;
 using Mango.Services.Identity.Initializer;
 using Mango.Services.Identity.Models;
+using Mango.Services.Identity.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -47,6 +50,7 @@ namespace Mango.Services.Identity
             .AddAspNetIdentity<ApplicationUser>();
 
             services.AddScoped<IDbInitializer, DbInitializer>();
+            services.AddScoped<IProfileService, ProfileService>();
             builder.AddDeveloperSigningCredential();
 
             services.AddControllersWithViews();
