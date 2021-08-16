@@ -56,9 +56,11 @@ namespace Mango.Services.Identity.Services
             }
         }
 
-        public Task IsActiveAsync(IsActiveContext context)
+        public async Task IsActiveAsync(IsActiveContext context)
         {
-            
+            string sub = context.Subject.GetSubjectId();
+            ApplicationUser user = await _userMgr.FindByIdAsync(sub);
+            context.IsActive = user != null;
         }
     }
 }
