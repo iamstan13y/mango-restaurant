@@ -10,7 +10,7 @@ namespace Mango.Web.Models
     {
         public ProductDto()
         {
-            Count = 2;
+            Count = 1;
         }
 
         public int ProductId { get; set; }
