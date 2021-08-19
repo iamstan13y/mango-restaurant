@@ -107,23 +107,30 @@ namespace Mango.Services.ShoppingCartAPI.Repository
 
         public async Task<bool> RemoveFromCart(int cartDetailsId)
         {
-            CartDetails cartDetails = await _db.CartDetails
-                .FirstOrDefaultAsync(u => u.CartDetailsId == cartDetailsId);
-
-            int totalCountOfCartItems = _db.CartDetails
-                .Where(u => u.CartHeaderId == cartDetails.CartDetailsId).Count();
-
-            _db.CartDetails.Remove(cartDetails);
-            if (totalCountOfCartItems == 1)
+            try
             {
-                var cartHeaderToRemove = await _db.CartHeaders
-                    .FirstOrDefaultAsync(u => u.CartHeaderId == cartDetails.CartHeaderId);
+                CartDetails cartDetails = await _db.CartDetails
+                    .FirstOrDefaultAsync(u => u.CartDetailsId == cartDetailsId);
 
-                _db.CartHeaders.Remove(cartHeaderToRemove);
-                await _db.SaveChangesAsync();
-                return true;
+                int totalCountOfCartItems = _db.CartDetails
+                    .Where(u => u.CartHeaderId == cartDetails.CartDetailsId).Count();
+
+                _db.CartDetails.Remove(cartDetails);
+                if (totalCountOfCartItems == 1)
+                {
+                    var cartHeaderToRemove = await _db.CartHeaders
+                        .FirstOrDefaultAsync(u => u.CartHeaderId == cartDetails.CartHeaderId);
+
+                    _db.CartHeaders.Remove(cartHeaderToRemove);
+                    await _db.SaveChangesAsync();
+                    return true;
+                }
+                return false;
             }
-            return false;
+            catch (Exception e)
+            {
+                return false;
+            }
 
         }
     }
