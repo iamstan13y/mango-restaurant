@@ -17,7 +17,7 @@ namespace Mango.Web.Services
             _clientFactory = clientFactory;
         }
 
-        public async Task<T> AddToCartAsync<T>(CartDto cartDto, string token = null)
+        public async Task<T> AddToCartAsync<T>(CartDto cartDto, string token)
         {
             return await SendAsync<T>(new ApiRequest()
             {
