@@ -26,7 +26,7 @@ namespace Mango.Services.ShoppingCartAPI.Controllers
         {
             try
             {
-                CartDto cartDto = await _cartRepository.GetCartUserByUserId(userId);
+                CartDto cartDto = await _cartRepository.GetCartByUserId(userId);
                 _response.Result = cartDto;
             }
             catch (Exception ex)
