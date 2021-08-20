@@ -70,7 +70,8 @@ namespace Mango.Web.Controllers
                 ProductId = productDto.ProductId
             };
 
-            var resp = await _productService.GetProductByIdAsync<ResponseDto>(productDto.ProductId, "");
+            var accessToken = await HttpContext.GetTokenAsync("access_token");
+            var resp = await _productService.GetProductByIdAsync<ResponseDto>(productDto.ProductId, accessToken);
             if (resp!= null && resp.IsSuccess)
             {
                 cartDetails.Product = JsonConvert.DeserializeObject<ProductDto>(Convert.ToString(resp.Result));
@@ -80,7 +81,6 @@ namespace Mango.Web.Controllers
             cartDetailsDtos.Add(cartDetails);
             cartDto.CartDetails = cartDetailsDtos;
 
-            var accessToken = await HttpContext.GetTokenAsync("access_token");
             var addToCartResp = await _cartService.AddToCartAsync<ResponseDto>(cartDto, accessToken);
 
             if (addToCartResp != null && addToCartResp.IsSuccess)
