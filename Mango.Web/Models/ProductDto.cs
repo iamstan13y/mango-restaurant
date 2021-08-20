@@ -12,7 +12,6 @@ namespace Mango.Web.Models
         {
             Count = 1;
         }
-
         public int ProductId { get; set; }
         public string Name { get; set; }
         public double Price { get; set; }
