@@ -107,7 +107,7 @@ namespace Mango.Services.ShoppingCartAPI.Repository
 
         }
 
-        public async Task<CartDto> GetCartUserByUserId(string userId)
+        public async Task<CartDto> GetCartByUserId(string userId)
         {
             Cart cart = new()
             {
