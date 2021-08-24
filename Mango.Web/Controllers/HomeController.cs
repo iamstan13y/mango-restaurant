@@ -64,14 +64,14 @@ namespace Mango.Web.Controllers
                 }
             };
 
-            CartDetailsDto cartDetails = new CartDetailsDto()
+            CartDetailsDto cartDetails = new()
             {
                 Count = productDto.Count,
                 ProductId = productDto.ProductId
             };
 
             var accessToken = await HttpContext.GetTokenAsync("access_token");
-            var resp = await _productService.GetProductByIdAsync<ResponseDto>(productDto.ProductId, accessToken);
+            var resp = await _productService.GetProductByIdAsync<ResponseDto>(productDto.ProductId, "");
             if (resp!= null && resp.IsSuccess)
             {
                 cartDetails.Product = JsonConvert.DeserializeObject<ProductDto>(Convert.ToString(resp.Result));
