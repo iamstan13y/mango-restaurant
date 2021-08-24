@@ -10,12 +10,12 @@ namespace Mango.Services.ShoppingCartAPI.Controllers
 {
     [ApiController]
     [Route("api/cart")]
-    public class CartController : Controller
+    public class CartAPIController : Controller
     {
         private readonly ICartRepository _cartRepository;
         protected ResponseDto _response;
 
-        public CartController(ICartRepository cartRepository)
+        public CartAPIController(ICartRepository cartRepository)
         {
             _cartRepository = cartRepository;
             _response = new ResponseDto();
