@@ -29,10 +29,10 @@ namespace Mango.Services.ShoppingCartAPI.Controllers
                 CartDto cartDto = await _cartRepository.GetCartByUserId(userId);
                 _response.Result = cartDto;
             }
-            catch (Exception ex)
+            catch(Exception ex)
             {
                 _response.IsSuccess = false;
-                _response.ErrorMessages = new List<string> { ex.ToString() };
+                _response.ErrorMessages = new List<string>() { ex.ToString() };
             }
             return _response;
         }
