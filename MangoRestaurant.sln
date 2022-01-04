@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.31410.357
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{F5D47B58-904A-4ED0-9E58-C1F572880818}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Product.API", "Product.API\Product.API.csproj", "{11B94712-96F3-42B3-9D82-6D9A9E1F937D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mango.ProductAPI", "Mango.ProductAPI\Mango.ProductAPI.csproj", "{11B94712-96F3-42B3-9D82-6D9A9E1F937D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

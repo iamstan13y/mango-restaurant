@@ -3,9 +3,10 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Product.API.Models.Data;
+using Mango.ProductAPI.Data.Models;
+using Mango.ProductAPI.Data;
 
-namespace Product.API.Migrations
+namespace Mango.ProductAPI.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     partial class ApplicationDbContextModelSnapshot : ModelSnapshot

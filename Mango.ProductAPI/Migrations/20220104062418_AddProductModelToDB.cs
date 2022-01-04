@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace Product.API.Migrations
+namespace Mango.ProductAPI.Migrations
 {
     public partial class AddProductModelToDB : Migration
     {

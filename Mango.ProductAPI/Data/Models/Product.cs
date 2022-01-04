@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Product.API.Models
+namespace Mango.ProductAPI.Data.Models
 {
     public class Product
     {
