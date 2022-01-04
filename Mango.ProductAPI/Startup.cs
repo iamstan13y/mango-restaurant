@@ -14,6 +14,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Mango.ProductAPI.Data;
 using AutoMapper;
+using Mango.ProductAPI.Data.Repositories;
 
 namespace Mango.ProductAPI
 {
@@ -37,6 +38,7 @@ namespace Mango.ProductAPI
             IMapper mapper = MappingConfig.RegisterMaps().CreateMapper();
             services.AddSingleton(mapper);
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            services.AddScoped<IProductRepository, ProductRepository>();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
