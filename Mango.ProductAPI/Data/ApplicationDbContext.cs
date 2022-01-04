@@ -26,7 +26,7 @@ namespace Mango.ProductAPI.Data
                 Name = "Samosa",
                 Price = 15,
                 Description = "Shit",
-                ImageUrl = "",
+                ImageUrl = "https://thegnatbug.blob.core.windows.net/mango/a.jpg",
                 CategoryName = "Appetizer"
             });
 
@@ -36,7 +36,7 @@ namespace Mango.ProductAPI.Data
                 Name = "Cup Cake",
                 Price = 18,
                 Description = "Shit",
-                ImageUrl = "",
+                ImageUrl = "https://thegnatbug.blob.core.windows.net/mango/b.jpg",
                 CategoryName = "Appetizer"
             });
 
@@ -46,7 +46,7 @@ namespace Mango.ProductAPI.Data
                 Name = "Shawarma",
                 Price = 22,
                 Description = "Shit",
-                ImageUrl = "",
+                ImageUrl = "https://thegnatbug.blob.core.windows.net/mango/c.jpg",
                 CategoryName = "Appetizer"
             });
 
@@ -56,7 +56,7 @@ namespace Mango.ProductAPI.Data
                 Name = "Pizza",
                 Price = 16,
                 Description = "Shit",
-                ImageUrl = "",
+                ImageUrl = "https://thegnatbug.blob.core.windows.net/mango/d.jpg",
                 CategoryName = "Appetizer"
             });
         }
