@@ -12,5 +12,7 @@ namespace Product.API.Models.Data
         {
 
         }
+
+        public DbSet<Product> Products { get; set; }
     }
 }
