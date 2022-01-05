@@ -1,4 +1,5 @@
-﻿using Duende.IdentityServer.Models;
+﻿using Duende.IdentityServer;
+using Duende.IdentityServer.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,6 +38,21 @@ namespace Mango.Identity
                     ClientSecrets = {new Secret("secret".Sha256())},
                     AllowedGrantTypes = GrantTypes.ClientCredentials,
                     AllowedScopes = {"read", "write", "profile"}
+                },
+                new Client
+                {
+                    ClientId = "mango",
+                    ClientSecrets = {new Secret("secret".Sha256())},
+                    AllowedGrantTypes = GrantTypes.Code,
+                    RedirectUris = { "https://localhost:44352/signin-oidc" },
+                    PostLogoutRedirectUris = { "https://localhost:44352/signout-callback-oidc" },
+                    AllowedScopes = new List<string>
+                    {
+                        IdentityServerConstants.StandardScopes.OpenId,
+                        IdentityServerConstants.StandardScopes.Profile,
+                        IdentityServerConstants.StandardScopes.Email,
+                        "mango"
+                    }
                 },
             };
     }
