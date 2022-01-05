@@ -26,7 +26,6 @@ namespace Mango.Identity
                 new ApiScope(name: "read", displayName: "Read your data."),
                 new ApiScope(name: "write", displayName: "Write your data."),
                 new ApiScope(name: "delete", displayName: "Delete your data."),
-
             };
 
         public static IEnumerable<Client> Clients =>
