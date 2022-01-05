@@ -29,7 +29,8 @@ namespace Mango.Web
             SD.ProductAPIBase = Configuration["ServiceUrls:ProductAPI"];
             
             services.AddScoped<IProductService, ProductService>();
-            
+
+            services.AddControllersWithViews();
             services.AddRazorPages();
         }
 
@@ -56,7 +57,9 @@ namespace Mango.Web
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapRazorPages();
+                endpoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
             });
         }
     }
