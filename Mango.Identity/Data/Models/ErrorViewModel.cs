@@ -1,6 +1,6 @@
 using System;
 
-namespace Mango.Identity.Models
+namespace Mango.Identity.Data.Models
 {
     public class ErrorViewModel
     {
