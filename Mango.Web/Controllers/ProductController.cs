@@ -17,6 +17,7 @@ namespace Mango.Web.Controllers
         {
             _productService = productService;
         }
+        
         public async Task<IActionResult> ProductIndex()
         {
             List<ProductDto> products = new();
@@ -27,6 +28,26 @@ namespace Mango.Web.Controllers
                 products = JsonConvert.DeserializeObject<List<ProductDto>>(Convert.ToString(response.Result));
             }
             return View(products);
+        }
+
+        public async Task<IActionResult> ProductCreate()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ProductCreate(ProductDto model)
+        {
+            if (ModelState.IsValid)
+            {
+                var response = await _productService.CreateProductAsync<ResponseDto>(model);
+                if (response != null && response.IsSuccess)
+                {
+                    return RedirectToAction(nameof(ProductIndex));
+                }
+            }
+            return View(model);
         }
     }
 }
