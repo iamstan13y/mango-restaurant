@@ -1,5 +1,6 @@
 ﻿using Mango.ProductAPI.Data.Models.Dto;
 using Mango.ProductAPI.Data.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -23,6 +24,7 @@ namespace Mango.ProductAPI.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public async Task<object> GetProducts()
         {
             try
@@ -41,6 +43,7 @@ namespace Mango.ProductAPI.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         [Route("{id}")]
         public async Task<object> GetProductById(int id)
         {
@@ -60,6 +63,7 @@ namespace Mango.ProductAPI.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<object> CreateProduct([FromBody] ProductDto productDto)
         {
             try
@@ -78,6 +82,7 @@ namespace Mango.ProductAPI.Controllers
         }
 
         [HttpPut]
+        [Authorize]
         public async Task<object> UpdateProduct([FromBody] ProductDto productDto)
         {
             try
@@ -97,6 +102,7 @@ namespace Mango.ProductAPI.Controllers
 
         [HttpDelete]
         [Route("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<object> DeleteProduct(int id)
         {
             try
