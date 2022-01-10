@@ -44,9 +44,6 @@ namespace IdentityServerHost.Quickstart.UI
             IEventService events,
             TestUserStore users = null)
         {
-            // this is where you would plug in your own custom identity management library (e.g. ASP.NET Identity)
-            _users = users ?? throw new Exception("Please call 'AddTestUsers(TestUsers.Users)' on the IIdentityServerBuilder in Startup or remove the TestUserStore from the AccountController.");
-
             _interaction = interaction;
             _clientStore = clientStore;
             _schemeProvider = schemeProvider;

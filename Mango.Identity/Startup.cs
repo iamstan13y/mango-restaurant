@@ -77,7 +77,6 @@ namespace Mango.Identity
 
             app.UseIdentityServer();
 
-
             app.UseAuthorization();
 
             dbInitializer.Initialize();
