@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authentication;
 
 namespace Mango.Web.Controllers
 {
@@ -35,8 +36,10 @@ namespace Mango.Web.Controllers
         [Authorize]
         public async Task<IActionResult> Details(int productId)
         {
+            var accessToken = await HttpContext.GetTokenAsync("access_token");
+
             ProductDto model = new();
-            var response = await _productService.GetProductByIdAsync<ResponseDto>(productId, "");
+            var response = await _productService.GetProductByIdAsync<ResponseDto>(productId, accessToken);
             if (response != null && response.IsSuccess)
             {
                 model = JsonConvert.DeserializeObject<ProductDto>(Convert.ToString(response.Result));
