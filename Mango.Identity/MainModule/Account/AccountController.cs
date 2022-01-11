@@ -1,27 +1,25 @@
 // Copyright (c) Duende Software. All rights reserved.
 // See LICENSE in the project root for license information.
 
-
-using IdentityModel;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Linq;
-using System.Threading.Tasks;
 using Duende.IdentityServer;
 using Duende.IdentityServer.Events;
 using Duende.IdentityServer.Extensions;
 using Duende.IdentityServer.Models;
 using Duende.IdentityServer.Services;
 using Duende.IdentityServer.Stores;
-using Duende.IdentityServer.Test;
+using IdentityModel;
 using Mango.Identity.Data.Models;
-using Microsoft.AspNetCore.Identity;
 using Mango.Identity.MainModule.Account;
-using System.Security.Claims;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace IdentityServerHost.Quickstart.UI
 {
@@ -97,7 +95,7 @@ namespace IdentityServerHost.Quickstart.UI
             {
                 if (context != null)
                 {
-                    // if the user cancels, send a result back into IdentityServer as if they 
+                    // if the user cancels, send a result back into IdentityServer as if they
                     // denied the consent (even if this client does not require consent).
                     // this will send back an access denied OIDC error response to the client.
                     await _interaction.DenyAuthorizationAsync(context, AuthorizationError.AccessDenied);
@@ -147,7 +145,6 @@ namespace IdentityServerHost.Quickstart.UI
                     {
                         throw new Exception("invalid return url");
                     }
-
                 }
                 await _events.RaiseAsync(new UserLoginFailureEvent(model.Username, "invalid credentials", clientId: context?.Client.ClientId));
                 ModelState.AddModelError(string.Empty, AccountOptions.InvalidCredentialsErrorMessage);
@@ -157,7 +154,6 @@ namespace IdentityServerHost.Quickstart.UI
             var vm = await BuildLoginViewModelAsync(model);
             return View(vm);
         }
-
 
         /// <summary>
         /// Show logout page
@@ -227,7 +223,6 @@ namespace IdentityServerHost.Quickstart.UI
             return View(vm);
         }
 
-
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -236,7 +231,6 @@ namespace IdentityServerHost.Quickstart.UI
             ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
             {
-
                 var user = new ApplicationUser
                 {
                     UserName = model.Username,
@@ -255,7 +249,6 @@ namespace IdentityServerHost.Quickstart.UI
                         {
                             Name = model.RoleName,
                             NormalizedName = model.RoleName,
-
                         };
                         await _roleManager.CreateAsync(userRole);
                     }
@@ -305,13 +298,13 @@ namespace IdentityServerHost.Quickstart.UI
                             throw new Exception("invalid return URL");
                         }
                     }
-
                 }
             }
 
             // If we got this far, something failed, redisplay form
             return View(model);
         }
+
         private async Task<RegisterViewModel> BuildRegisterViewModelAsync(string returnUrl)
         {
             var context = await _interaction.GetAuthorizationContextAsync(returnUrl);
@@ -374,9 +367,11 @@ namespace IdentityServerHost.Quickstart.UI
                 ExternalProviders = providers.ToArray()
             };
         }
+
         /*****************************************/
         /* helper APIs for the AccountController */
         /*****************************************/
+
         private async Task<LoginViewModel> BuildLoginViewModelAsync(string returnUrl)
         {
             var context = await _interaction.GetAuthorizationContextAsync(returnUrl);
