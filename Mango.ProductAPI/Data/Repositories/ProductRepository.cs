@@ -11,8 +11,8 @@ namespace Mango.ProductAPI.Data.Repositories
 {
     public class ProductRepository : IProductRepository
     {
-        private ApplicationDbContext _context;
-        private IMapper _mapper;
+        private readonly ApplicationDbContext _context;
+        private readonly IMapper _mapper;
 
         public ProductRepository(ApplicationDbContext context, IMapper mapper)
         {

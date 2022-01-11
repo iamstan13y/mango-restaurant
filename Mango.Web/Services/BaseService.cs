@@ -4,7 +4,6 @@ using Mango.Web.Services.IServices;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
@@ -15,19 +14,19 @@ namespace Mango.Web.Services
     public class BaseService : IBaseService
     {
         public ResponseDto ResponseModel { get; set; }
-        public IHttpClientFactory _httpClient { get; set; }
+        public IHttpClientFactory HttpClient { get; set; }
 
         public BaseService(IHttpClientFactory httpClient)
         {
-            ResponseModel = new ResponseDto();
-            _httpClient = httpClient;
+            ResponseModel = new();
+            HttpClient = httpClient;
         }
 
         public async Task<T> SendAsync<T>(ApiRequest apiRequest)
         {
             try
             {
-                var client = _httpClient.CreateClient("MangoAPI");
+                var client = HttpClient.CreateClient("MangoAPI");
                 HttpRequestMessage message = new();
                 message.Headers.Add("Accept", "application/json");
                 message.RequestUri = new Uri(apiRequest.Url);
@@ -45,7 +44,7 @@ namespace Mango.Web.Services
                 }
 
                 HttpResponseMessage apiResponse = null;
-                
+
                 switch (apiRequest.ApiType)
                 {
                     case ApiType.POST:
@@ -80,12 +79,11 @@ namespace Mango.Web.Services
                 var apiResponseDto = JsonConvert.DeserializeObject<T>(res);
                 return apiResponseDto;
             }
-
         }
 
         public void Dispose()
         {
-            GC.SuppressFinalize(true);
+            GC.SuppressFinalize(this);
         }
     }
 }

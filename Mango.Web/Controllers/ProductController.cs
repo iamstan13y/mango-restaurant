@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Mango.Web.Controllers
@@ -19,7 +18,7 @@ namespace Mango.Web.Controllers
         {
             _productService = productService;
         }
-        
+
         public async Task<IActionResult> ProductIndex()
         {
             var accessToken = await HttpContext.GetTokenAsync("access_token");
@@ -34,7 +33,7 @@ namespace Mango.Web.Controllers
             return View(products);
         }
 
-        public async Task<IActionResult> ProductCreate()
+        public IActionResult ProductCreate()
         {
             return View();
         }
@@ -63,7 +62,7 @@ namespace Mango.Web.Controllers
             if (response != null && response.IsSuccess)
             {
                 ProductDto model = JsonConvert.DeserializeObject<ProductDto>(Convert.ToString(response.Result));
-                
+
                 return View(model);
             }
 

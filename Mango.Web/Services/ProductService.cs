@@ -1,9 +1,6 @@
 ﻿using Mango.Web.Enums;
 using Mango.Web.Models;
 using Mango.Web.Services.IServices;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -11,11 +8,8 @@ namespace Mango.Web.Services
 {
     public class ProductService : BaseService, IProductService
     {
-        private readonly IHttpClientFactory _clientFactory;
-
         public ProductService(IHttpClientFactory clientFactory) : base(clientFactory)
         {
-            _clientFactory = clientFactory;
         }
 
         public async Task<T> CreateProductAsync<T>(ProductDto productDto, string token)
