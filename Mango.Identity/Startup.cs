@@ -1,4 +1,3 @@
-using Duende.IdentityServer.AspNetIdentity;
 using Duende.IdentityServer.Services;
 using Mango.Identity.Data;
 using Mango.Identity.Data.Initializer;
@@ -6,16 +5,11 @@ using Mango.Identity.Data.Models;
 using Mango.Identity.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Mango.Identity
 {
@@ -84,7 +78,7 @@ namespace Mango.Identity
             app.UseAuthorization();
 
             dbInitializer.Initialize();
-            
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
