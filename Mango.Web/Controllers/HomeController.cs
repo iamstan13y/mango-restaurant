@@ -5,10 +5,9 @@ using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authentication;
 
 namespace Mango.Web.Controllers
 {
@@ -23,11 +22,6 @@ namespace Mango.Web.Controllers
             _productService = productService;
         }
 
-        public HomeController()
-        {
-
-        }
-
         public async Task<IActionResult> Index()
         {
             List<ProductDto> products = new();
@@ -37,6 +31,20 @@ namespace Mango.Web.Controllers
                 products = JsonConvert.DeserializeObject<List<ProductDto>>(Convert.ToString(response.Result));
             }
             return View(products);
+        }
+
+        [Authorize]
+        public async Task<IActionResult> Details(int productId)
+        {
+            var accessToken = await HttpContext.GetTokenAsync("access_token");
+
+            ProductDto model = new();
+            var response = await _productService.GetProductByIdAsync<ResponseDto>(productId, accessToken);
+            if (response != null && response.IsSuccess)
+            {
+                model = JsonConvert.DeserializeObject<ProductDto>(Convert.ToString(response.Result));
+            }
+            return View(model);
         }
 
         [Authorize]
