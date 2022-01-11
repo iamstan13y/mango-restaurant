@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace Mango.ProductAPI.Data.Models.Dto
+﻿namespace Mango.ProductAPI.Data.Models.Dto
 {
     public class ProductDto
     {
