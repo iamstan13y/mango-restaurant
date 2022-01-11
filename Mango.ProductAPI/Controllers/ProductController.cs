@@ -22,7 +22,6 @@ namespace Mango.ProductAPI.Controllers
         }
 
         [HttpGet]
-        [Authorize]
         public async Task<object> GetProducts()
         {
             try
