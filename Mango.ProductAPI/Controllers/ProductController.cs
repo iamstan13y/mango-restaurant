@@ -1,11 +1,9 @@
 ﻿using Mango.ProductAPI.Data.Models.Dto;
 using Mango.ProductAPI.Data.Repositories;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Mango.ProductAPI.Controllers
@@ -15,7 +13,7 @@ namespace Mango.ProductAPI.Controllers
     public class ProductController : ControllerBase
     {
         protected ResponseDto _response;
-        private IProductRepository _productRepository;
+        private readonly IProductRepository _productRepository;
 
         public ProductController(IProductRepository productRepository)
         {
@@ -119,6 +117,5 @@ namespace Mango.ProductAPI.Controllers
 
             return _response;
         }
-
     }
 }
