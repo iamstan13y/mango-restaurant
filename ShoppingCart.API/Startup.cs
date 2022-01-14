@@ -11,6 +11,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using ShoppingCart.API.Models.Data;
+using ShoppingCart.API.Models.Repository;
 using ShoppingCart.API.Utility;
 using System;
 using System.Collections.Generic;
@@ -39,6 +40,7 @@ namespace ShoppingCart.API
             IMapper mapper = MappingConfig.RegisterMaps().CreateMapper();
             services.AddSingleton(mapper);
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            services.AddScoped<ICartRepository, CartRepository>();
             //services.AddScoped<IProductRepository, ProductRepository>();
 
             services.AddControllers();
