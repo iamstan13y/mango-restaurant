@@ -50,12 +50,15 @@ namespace Mango.Web.Services
                     case ApiType.POST:
                         message.Method = HttpMethod.Post;
                         break;
+
                     case ApiType.PUT:
                         message.Method = HttpMethod.Put;
                         break;
+
                     case ApiType.DELETE:
                         message.Method = HttpMethod.Delete;
                         break;
+
                     default:
                         message.Method = HttpMethod.Get;
                         break;
