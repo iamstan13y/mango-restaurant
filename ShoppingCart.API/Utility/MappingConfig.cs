@@ -17,7 +17,7 @@ namespace ShoppingCart.API.Utility
                 config.CreateMap<ProductDto, Product>().ReverseMap();
                 config.CreateMap<CartHeaderDto, CartHeader>().ReverseMap();
                 config.CreateMap<CartDto, Cart>().ReverseMap();
-                config.CreateMap<CartDetailsDto, CartDetailsDto>().ReverseMap();
+                config.CreateMap<CartDetailsDto, CartDetails>().ReverseMap();
             });
 
             return mappingConfig;

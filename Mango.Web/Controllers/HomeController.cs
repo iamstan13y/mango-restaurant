@@ -18,10 +18,11 @@ namespace Mango.Web.Controllers
         private readonly IProductService _productService;
         private readonly ICartService _cartService;
 
-        public HomeController(ILogger<HomeController> logger, IProductService productService)
+        public HomeController(ILogger<HomeController> logger, IProductService productService, ICartService cartService)
         {
             _logger = logger;
             _productService = productService;
+            _cartService = cartService;
         }
 
         public async Task<IActionResult> Index()
@@ -49,7 +50,8 @@ namespace Mango.Web.Controllers
             return View(model);
         }
         
-        [HttpPost("Details")]
+        [HttpPost]
+        [ActionName("Details")]
         [Authorize]
         public async Task<IActionResult> DetailsPost(ProductDto productDto)
         {
@@ -61,13 +63,14 @@ namespace Mango.Web.Controllers
                 }
             };
 
-            CartDetailsDto cartDetails = new CartDetailsDto()
+            CartDetailsDto cartDetails = new()
             {
                 Count = productDto.Count,
                 ProductId = productDto.ProductId
             };
 
-            var resp = await _productService.GetProductByIdAsync<ResponseDto>(productDto.ProductId, "");
+            var accessToken = await HttpContext.GetTokenAsync("access_token");
+            var resp = await _productService.GetProductByIdAsync<ResponseDto>(productDto.ProductId, accessToken);
             if (resp != null && resp.IsSuccess)
             {
                 cartDetails.Product = JsonConvert.DeserializeObject<ProductDto>(Convert.ToString(resp.Result));
@@ -77,7 +80,6 @@ namespace Mango.Web.Controllers
             cartDetailsDtos.Add(cartDetails);
             cartDto.CartDetails = cartDetailsDtos;
 
-            var accessToken = await HttpContext.GetTokenAsync("access_token");
             var addToCartResp = await _cartService.AddToCartAsync<ResponseDto>(cartDto, accessToken);
             if (addToCartResp != null && addToCartResp.IsSuccess)
             {
