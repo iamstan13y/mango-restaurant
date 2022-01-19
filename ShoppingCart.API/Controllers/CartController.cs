@@ -1,10 +1,8 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using ShoppingCart.API.Models.Dto;
 using ShoppingCart.API.Models.Repository;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace ShoppingCart.API.Controllers
@@ -69,7 +67,6 @@ namespace ShoppingCart.API.Controllers
             }
             return _response;
         }
-
 
         [HttpPost("RemoveCart")]
         public async Task<object> RemoveCart([FromBody] int cartId)

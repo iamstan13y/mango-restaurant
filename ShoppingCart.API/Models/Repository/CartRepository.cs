@@ -3,7 +3,6 @@ using Microsoft.EntityFrameworkCore;
 using ShoppingCart.API.Models.Data;
 using ShoppingCart.API.Models.Dto;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -30,7 +29,6 @@ namespace ShoppingCart.API.Models.Repository
                 _context.CartHeaders.Remove(cartHeader);
                 await _context.SaveChangesAsync();
                 return true;
-
             }
             return false;
         }

@@ -1,10 +1,6 @@
 ﻿using AutoMapper;
 using ShoppingCart.API.Models;
 using ShoppingCart.API.Models.Dto;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace ShoppingCart.API.Utility
 {
