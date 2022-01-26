@@ -2,9 +2,6 @@
 using Mango.CouponAPI.Models.Data;
 using Mango.CouponAPI.Models.Dto;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Mango.CouponAPI.Models.Repository

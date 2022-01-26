@@ -1,10 +1,8 @@
 ﻿using Mango.CouponAPI.Models.Dto;
 using Mango.CouponAPI.Models.Repository;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Mango.CouponAPI.Controllers
