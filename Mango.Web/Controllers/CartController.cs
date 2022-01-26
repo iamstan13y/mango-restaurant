@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -58,7 +57,7 @@ namespace Mango.Web.Controllers
             {
                 foreach (var detail in cartDto.CartDetails)
                 {
-                    cartDto.CartHeader.OrderTotal += (detail.Product.Price * detail.Count);
+                    cartDto.CartHeader.OrderTotal += detail.Product.Price * detail.Count;
                 }
             }
             return cartDto;
