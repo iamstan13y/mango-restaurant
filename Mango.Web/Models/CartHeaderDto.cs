@@ -11,6 +11,7 @@ namespace Mango.Web.Models
         public double DiscountTotal { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
+        public string Phone { get; set; }
         public DateTime PickupDate { get; set; }
         public string Email { get; set; }
         public string CardNumber { get; set; }
