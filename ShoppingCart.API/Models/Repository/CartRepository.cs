@@ -19,6 +19,16 @@ namespace ShoppingCart.API.Models.Repository
             _mapper = mapper;
         }
 
+        public async Task<bool> ApplyCoupon(string userId, string couponCode)
+        {
+            var cart = await _context.CartHeaders.FirstOrDefaultAsync(u => u.UserId == userId);
+            cart.CouponCode = couponCode;
+            _context.CartHeaders.Update(cart);
+            await _context.SaveChangesAsync();
+
+            return true;
+        }
+
         public async Task<bool> ClearCart(string userId)
         {
             var cartHeader = await _context.CartHeaders.FirstOrDefaultAsync(u => u.UserId == userId);
@@ -93,6 +103,16 @@ namespace ShoppingCart.API.Models.Repository
                 .Where(u => u.CartHeaderId == cart.CartHeader.CartHeaderId).Include(u => u.Product);
 
             return _mapper.Map<CartDto>(cart);
+        }
+
+        public async Task<bool> RemoveCoupon(string userId)
+        {
+            var cart = await _context.CartHeaders.FirstOrDefaultAsync(u => u.UserId == userId);
+            cart.CouponCode = string.Empty;
+            _context.CartHeaders.Update(cart);
+            await _context.SaveChangesAsync();
+
+            return true;
         }
 
         public async Task<bool> RemoveFromCart(int cartDetailsId)

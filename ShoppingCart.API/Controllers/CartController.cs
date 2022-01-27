@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ShoppingCart.API.Models.Dto;
+using ShoppingCart.API.Models.Messages;
 using ShoppingCart.API.Models.Repository;
 using System;
 using System.Collections.Generic;
@@ -81,6 +82,62 @@ namespace ShoppingCart.API.Controllers
                 _response.IsSuccess = false;
                 _response.ErrorMessages = new List<string> { ex.ToString() };
             }
+            return _response;
+        }
+
+        [HttpPost("ApplyCoupon")]
+        public async Task<object> ApplyCoupon([FromBody] CartDto cartDto)
+        {
+            try
+            {
+                var result = await _cartRepository.ApplyCoupon(cartDto.CartHeader.UserId, cartDto.CartHeader.CouponCode);
+                _response.Result = result;
+            }
+            catch (Exception ex)
+            {
+                _response.IsSuccess = false;
+                _response.ErrorMessages = new List<string> { ex.ToString() };
+            }
+            return _response;
+        }
+
+        [HttpDelete("RemoveCoupon/{userId}")]
+        public async Task<object> RemoveCoupon([FromRoute] string userId)
+        {
+            try
+            {
+                var result = await _cartRepository.RemoveCoupon(userId);
+                _response.Result = result;
+            }
+            catch (Exception ex)
+            {
+                _response.IsSuccess = false;
+                _response.ErrorMessages = new List<string> { ex.ToString() };
+            }
+            return _response;
+        }
+        
+        [HttpPost("Checkout")]
+        public async Task<object> Checkout(CheckoutHeaderDto checkoutHeader)
+        {
+            try
+            {
+                CartDto cartDto = await _cartRepository.GetCartByUserId(checkoutHeader.UserId);
+                
+                if (cartDto == null)
+                {
+                    return BadRequest();
+                }
+
+                checkoutHeader.CartDetails = cartDto.CartDetails;
+                //shit
+            }
+            catch (Exception ex)
+            {
+                _response.IsSuccess = false;
+                _response.ErrorMessages = new List<string> { ex.ToString() };
+            }
+
             return _response;
         }
     }
