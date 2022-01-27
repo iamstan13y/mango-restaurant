@@ -115,5 +115,21 @@ namespace ShoppingCart.API.Controllers
             }
             return _response;
         }
+        
+        [HttpPost("Checkout")]
+        public async Task<object> Checkout()
+        {
+            try
+            {
+                var result = await _cartRepository.RemoveCoupon(userId);
+                _response.Result = result;
+            }
+            catch (Exception ex)
+            {
+                _response.IsSuccess = false;
+                _response.ErrorMessages = new List<string> { ex.ToString() };
+            }
+            return _response;
+        }
     }
 }
