@@ -1,4 +1,5 @@
-﻿using ShoppingCart.API.Models.Dto;
+﻿using Mango.MessageBus;
+using ShoppingCart.API.Models.Dto;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ShoppingCart.API.Models.Messages
 {
-    public class CheckoutHeaderDto
+    public class CheckoutHeaderDto : BaseMessage
     {
         public int CartHeaderId { get; set; }
         public string UserId { get; set; }

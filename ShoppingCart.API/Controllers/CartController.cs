@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Mango.MessageBus;
+using Microsoft.AspNetCore.Mvc;
 using ShoppingCart.API.Models.Dto;
 using ShoppingCart.API.Models.Messages;
 using ShoppingCart.API.Models.Repository;
@@ -13,12 +14,14 @@ namespace ShoppingCart.API.Controllers
     public class CartController : ControllerBase
     {
         private readonly ICartRepository _cartRepository;
+        private readonly IMessageBus _messageBus;
         protected ResponseDto _response;
 
-        public CartController(ICartRepository cartRepository)
+        public CartController(ICartRepository cartRepository, IMessageBus messageBus)
         {
             _cartRepository = cartRepository;
-            _response = new ResponseDto();
+            _messageBus = messageBus;
+            _response = new();
         }
 
         [HttpGet("GetCart/{userId}")]
@@ -130,7 +133,8 @@ namespace ShoppingCart.API.Controllers
                 }
 
                 checkoutHeader.CartDetails = cartDto.CartDetails;
-                //shit
+
+                await _messageBus.PublishMessage(checkoutHeader, "checkoutmessagetopic");
             }
             catch (Exception ex)
             {

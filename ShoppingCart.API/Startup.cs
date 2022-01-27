@@ -1,4 +1,5 @@
 using AutoMapper;
+using Mango.MessageBus;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -36,7 +37,7 @@ namespace ShoppingCart.API
             services.AddSingleton(mapper);
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddScoped<ICartRepository, CartRepository>();
-            //services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddSingleton<IMessageBus, AzureServiceBusMessageBus>();
 
             services.AddControllers();
 
