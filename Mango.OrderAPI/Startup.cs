@@ -1,5 +1,7 @@
+using AutoMapper;
 using Mango.OrderAPI.Models.Data;
 using Mango.OrderAPI.Models.Repository;
+using Mango.OrderAPI.Utility;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -35,7 +37,7 @@ namespace Mango.OrderAPI
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
             });
 
-            //IMapper mapper = MappingConfig.RegisterMaps().CreateMapper();
+            IMapper mapper = MappingConfig.RegisterMaps().CreateMapper();
             //services.AddSingleton(mapper);
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
