@@ -44,9 +44,26 @@ namespace Mango.OrderAPI.Messages
 
             CheckoutHeaderDto checkoutHeaderDto = JsonConvert.DeserializeObject<CheckoutHeaderDto>(body);
 
-            var orderHeader = _mapper.Map<OrderHeader>(checkoutHeaderDto);
-            orderHeader.OrderTime = DateTime.Now;
-            orderHeader.OrderDetails = new();
+            var orderHeader = new OrderHeader()
+            {
+                CardNumber = checkoutHeaderDto.CardNumber,
+                CartTotalItems = checkoutHeaderDto.CartTotalItems,
+                CouponCode = checkoutHeaderDto.CouponCode,
+                CVV = checkoutHeaderDto.CVV,
+                DiscountTotal = checkoutHeaderDto.DiscountTotal,
+                Email = checkoutHeaderDto.Email,
+                ExpiryMonthYear = checkoutHeaderDto.ExpiryMonthYear,
+                FirstName = checkoutHeaderDto.FirstName,
+                LastName = checkoutHeaderDto.LastName,
+                OrderTotal = checkoutHeaderDto.OrderTotal,
+                PaymentStatus = false,
+                Phone = checkoutHeaderDto.Phone,
+                PickupDate = checkoutHeaderDto.PickupDate,
+                UserId = checkoutHeaderDto.UserId,
+                OrderTime = DateTime.Now,
+                OrderDetails = new()
+            };
+
 
             foreach (var detailList in checkoutHeaderDto.CartDetails)
             {
