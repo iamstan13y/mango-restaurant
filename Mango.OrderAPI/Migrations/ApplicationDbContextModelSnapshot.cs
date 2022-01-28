@@ -3,8 +3,6 @@ using System;
 using Mango.OrderAPI.Models.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Mango.OrderAPI.Migrations
 {

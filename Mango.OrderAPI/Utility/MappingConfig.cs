@@ -1,10 +1,6 @@
 ﻿using AutoMapper;
 using Mango.OrderAPI.Messages;
 using Mango.OrderAPI.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Mango.OrderAPI.Utility
 {
