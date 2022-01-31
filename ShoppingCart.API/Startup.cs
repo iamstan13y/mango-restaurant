@@ -37,8 +37,11 @@ namespace ShoppingCart.API
             services.AddSingleton(mapper);
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddScoped<ICartRepository, CartRepository>();
+            services.AddScoped<ICouponRepository, CouponRepository>();
+            services.AddHttpClient<ICouponRepository, CouponRepository>(u => u.BaseAddress = 
+                new Uri(Configuration["ServiceUrls:CouponAPI"]));
             services.AddSingleton<IMessageBus, AzureServiceBusMessageBus>();
-
+          
             services.AddControllers();
 
             services.AddAuthentication("Bearer")
