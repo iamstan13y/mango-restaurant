@@ -83,7 +83,10 @@ namespace ShoppingCart.API.Models.Repository
                 }
                 else
                 {
+                    cart.CartDetails.FirstOrDefault().Product = null;
                     cart.CartDetails.FirstOrDefault().Count += cartDetails.Count;
+                    cart.CartDetails.FirstOrDefault().CartDetailsId = cartDetails.CartDetailsId;
+                    cart.CartDetails.FirstOrDefault().CartHeaderId = cartDetails.CartHeaderId;
                     _context.CartDetails.Update(cart.CartDetails.FirstOrDefault());
                     await _context.SaveChangesAsync();
                 }
