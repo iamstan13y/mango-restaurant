@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Mango.MessageBus;
+using Microsoft.AspNetCore.Mvc;
 using ShoppingCart.API.Models.Dto;
+using ShoppingCart.API.Models.Messages;
 using ShoppingCart.API.Models.Repository;
 using System;
 using System.Collections.Generic;
@@ -12,12 +14,14 @@ namespace ShoppingCart.API.Controllers
     public class CartController : ControllerBase
     {
         private readonly ICartRepository _cartRepository;
+        private readonly IMessageBus _messageBus;
         protected ResponseDto _response;
 
-        public CartController(ICartRepository cartRepository)
+        public CartController(ICartRepository cartRepository, IMessageBus messageBus)
         {
             _cartRepository = cartRepository;
-            _response = new ResponseDto();
+            _messageBus = messageBus;
+            _response = new();
         }
 
         [HttpGet("GetCart/{userId}")]
@@ -68,8 +72,8 @@ namespace ShoppingCart.API.Controllers
             return _response;
         }
 
-        [HttpPost("RemoveCart")]
-        public async Task<object> RemoveCart([FromBody] int cartId)
+        [HttpDelete("RemoveCart/{cartId}")]
+        public async Task<object> RemoveCart([FromRoute] int cartId)
         {
             try
             {
@@ -81,6 +85,63 @@ namespace ShoppingCart.API.Controllers
                 _response.IsSuccess = false;
                 _response.ErrorMessages = new List<string> { ex.ToString() };
             }
+            return _response;
+        }
+
+        [HttpPost("ApplyCoupon")]
+        public async Task<object> ApplyCoupon([FromBody] CartDto cartDto)
+        {
+            try
+            {
+                var result = await _cartRepository.ApplyCoupon(cartDto.CartHeader.UserId, cartDto.CartHeader.CouponCode);
+                _response.Result = result;
+            }
+            catch (Exception ex)
+            {
+                _response.IsSuccess = false;
+                _response.ErrorMessages = new List<string> { ex.ToString() };
+            }
+            return _response;
+        }
+
+        [HttpDelete("RemoveCoupon/{userId}")]
+        public async Task<object> RemoveCoupon([FromRoute] string userId)
+        {
+            try
+            {
+                var result = await _cartRepository.RemoveCoupon(userId);
+                _response.Result = result;
+            }
+            catch (Exception ex)
+            {
+                _response.IsSuccess = false;
+                _response.ErrorMessages = new List<string> { ex.ToString() };
+            }
+            return _response;
+        }
+        
+        [HttpPost("Checkout")]
+        public async Task<object> Checkout(CheckoutHeaderDto checkoutHeader)
+        {
+            try
+            {
+                CartDto cartDto = await _cartRepository.GetCartByUserId(checkoutHeader.UserId);
+                
+                if (cartDto == null)
+                {
+                    return BadRequest();
+                }
+
+                checkoutHeader.CartDetails = cartDto.CartDetails;
+
+                await _messageBus.PublishMessage(checkoutHeader, "checkoutmessagetopic");
+            }
+            catch (Exception ex)
+            {
+                _response.IsSuccess = false;
+                _response.ErrorMessages = new List<string> { ex.ToString() };
+            }
+
             return _response;
         }
     }

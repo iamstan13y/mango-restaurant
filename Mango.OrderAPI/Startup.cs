@@ -1,5 +1,9 @@
 using AutoMapper;
-using Mango.MessageBus;
+using Mango.OrderAPI.Extensions;
+using Mango.OrderAPI.Messages;
+using Mango.OrderAPI.Models.Data;
+using Mango.OrderAPI.Models.Repository;
+using Mango.OrderAPI.Utility;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -8,13 +12,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using ShoppingCart.API.Models.Data;
-using ShoppingCart.API.Models.Repository;
-using ShoppingCart.API.Utility;
 using System;
 using System.Collections.Generic;
 
-namespace ShoppingCart.API
+namespace Mango.OrderAPI
 {
     public class Startup
     {
@@ -34,14 +35,14 @@ namespace ShoppingCart.API
             });
 
             IMapper mapper = MappingConfig.RegisterMaps().CreateMapper();
-            services.AddSingleton(mapper);
+            //services.AddSingleton(mapper);
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-            services.AddScoped<ICartRepository, CartRepository>();
-            services.AddScoped<ICouponRepository, CouponRepository>();
-            services.AddHttpClient<ICouponRepository, CouponRepository>(u => u.BaseAddress = 
-                new Uri(Configuration["ServiceUrls:CouponAPI"]));
-            services.AddSingleton<IMessageBus, AzureServiceBusMessageBus>();
-          
+
+            var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
+            optionsBuilder.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
+            services.AddSingleton(new OrderRepository(optionsBuilder.Options));
+            services.AddSingleton<IAzureServiceBusConsumer, AzureServiceBusConsumer>();
+
             services.AddControllers();
 
             services.AddAuthentication("Bearer")
@@ -65,8 +66,7 @@ namespace ShoppingCart.API
 
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "ShoppingCart.API", Version = "v1" });
-                c.EnableAnnotations();
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Mango.CouponAPI", Version = "v1" });
                 c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
                     Description = @"Isa 'Bearer' [space] ne tokeni rako.",
@@ -103,7 +103,7 @@ namespace ShoppingCart.API
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "ShoppingCart.API v1"));
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Mango.OrderAPI v1"));
             }
 
             app.UseHttpsRedirection();
@@ -118,6 +118,8 @@ namespace ShoppingCart.API
             {
                 endpoints.MapControllers();
             });
+
+            app.UseAzureServiceBusConsumer();
         }
     }
 }

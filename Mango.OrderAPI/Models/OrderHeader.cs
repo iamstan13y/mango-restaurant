@@ -1,10 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 
-namespace Mango.Web.Models
+namespace Mango.OrderAPI.Models
 {
-    public class CartHeaderDto
+    public class OrderHeader
     {
-        public int CartHeaderId { get; set; }
+        public int OrderHeaderId { get; set; }
         public string UserId { get; set; }
         public string CouponCode { get; set; }
         public double OrderTotal { get; set; }
@@ -13,9 +14,13 @@ namespace Mango.Web.Models
         public string LastName { get; set; }
         public string Phone { get; set; }
         public DateTime PickupDate { get; set; }
+        public DateTime OrderTime { get; set; }
         public string Email { get; set; }
         public string CardNumber { get; set; }
         public string CVV { get; set; }
         public string ExpiryMonthYear { get; set; }
+        public int CartTotalItems { get; set; }
+        public List<OrderDetails> OrderDetails { get; set; }
+        public bool PaymentStatus { get; set; }
     }
 }
