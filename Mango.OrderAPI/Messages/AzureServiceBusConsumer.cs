@@ -14,8 +14,9 @@ namespace Mango.OrderAPI.Messages
     public class AzureServiceBusConsumer : IAzureServiceBusConsumer
     {
         private readonly string serviceBusConnectionString;
-        private readonly string subscription;
-        private readonly string topic;
+        private readonly string mangoOrderSubscription;
+        private readonly string checkoutMessageTopic;
+        private readonly string orderPaymentProcessTopic;
         private readonly OrderRepository _orderRepository;
 
         private ServiceBusProcessor checkoutProcessor;
@@ -29,11 +30,12 @@ namespace Mango.OrderAPI.Messages
             _messageBus = messageBus;
 
             serviceBusConnectionString = _configuration.GetValue<string>("ServiceBusConnectionString");
-            subscription = _configuration.GetValue<string>("Subscription");
-            topic = _configuration.GetValue<string>("Topic");
+            mangoOrderSubscription = _configuration.GetValue<string>("MangoOrderSubscription");
+            checkoutMessageTopic = _configuration.GetValue<string>("CheckOutMessageTopic");
+            orderPaymentProcessTopic = _configuration.GetValue<string>("OrderPaymentProcessTopic");
 
             var client = new ServiceBusClient(serviceBusConnectionString);
-            checkoutProcessor = client.CreateProcessor(topic, subscription);
+            checkoutProcessor = client.CreateProcessor(checkoutMessageTopic, mangoOrderSubscription);
         }
 
         private async Task OnCheckOutMessageReceived(ProcessMessageEventArgs args)
@@ -92,11 +94,12 @@ namespace Mango.OrderAPI.Messages
 
             try
             {
-                await _messageBus.PublishMessage(paymentRequestMessage, );
+                await _messageBus.PublishMessage(paymentRequestMessage, orderPaymentProcessTopic);
+                await args.CompleteMessageAsync(args.Message);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
+                throw;
             }
         }
 
