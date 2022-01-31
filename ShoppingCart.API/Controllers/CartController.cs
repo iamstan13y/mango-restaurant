@@ -14,11 +14,13 @@ namespace ShoppingCart.API.Controllers
     public class CartController : ControllerBase
     {
         private readonly ICartRepository _cartRepository;
+        private readonly ICouponRepository _couponRepository;
         private readonly IMessageBus _messageBus;
         protected ResponseDto _response;
 
-        public CartController(ICartRepository cartRepository, IMessageBus messageBus)
+        public CartController(ICartRepository cartRepository, ICouponRepository couponRepository, IMessageBus messageBus)
         {
+            _couponRepository = couponRepository;
             _cartRepository = cartRepository;
             _messageBus = messageBus;
             _response = new();
@@ -130,6 +132,19 @@ namespace ShoppingCart.API.Controllers
                 if (cartDto == null)
                 {
                     return BadRequest();
+                }
+
+                if (!string.IsNullOrEmpty(checkoutHeader.CouponCode))
+                {
+                    CouponDto coupon = await _couponRepository.GetCoupon(checkoutHeader.CouponCode);
+                    if (checkoutHeader.DiscountTotal != coupon.DiscountAmount)
+                    {
+                        _response.IsSuccess = false;
+                        _response.ErrorMessages = new List<string>() { "Coupon amount has changed, please confirm!" };
+                        _response.DisplayMessage = "Invalid Coupon";
+
+                        return _response;
+                    }
                 }
 
                 checkoutHeader.CartDetails = cartDto.CartDetails;
