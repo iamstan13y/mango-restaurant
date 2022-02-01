@@ -15,7 +15,7 @@ namespace Mango.MessageBus
             await using var client = new ServiceBusClient(connectionString);
 
             ServiceBusSender sender = client.CreateSender(topicName);
-            
+
             var jsonMessage = JsonConvert.SerializeObject(message);
             var finalMessage = new ServiceBusMessage(Encoding.UTF8.GetBytes(jsonMessage))
             {
