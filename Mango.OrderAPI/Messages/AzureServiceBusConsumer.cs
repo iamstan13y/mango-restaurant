@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using Azure.Messaging.ServiceBus;
+﻿using Azure.Messaging.ServiceBus;
 using Mango.MessageBus;
 using Mango.OrderAPI.Models;
 using Mango.OrderAPI.Models.Repository;
@@ -26,6 +25,7 @@ namespace Mango.OrderAPI.Messages
 
         private readonly IConfiguration _configuration;
         private readonly IMessageBus _messageBus;
+
         public AzureServiceBusConsumer(OrderRepository orderRepository, IConfiguration configuration, IMessageBus messageBus)
         {
             _orderRepository = orderRepository;
@@ -69,7 +69,6 @@ namespace Mango.OrderAPI.Messages
                 OrderTime = DateTime.Now,
                 OrderDetails = new()
             };
-
 
             foreach (var detailList in checkoutHeaderDto.CartDetails)
             {
@@ -134,12 +133,12 @@ namespace Mango.OrderAPI.Messages
         {
             await checkoutProcessor.StopProcessingAsync();
             await checkoutProcessor.DisposeAsync();
-            
+
             await orderUpdatePaymentStatusProcessor.StopProcessingAsync();
             await orderUpdatePaymentStatusProcessor.DisposeAsync();
         }
 
-        Task ErrorHandler(ProcessErrorEventArgs args)
+        private Task ErrorHandler(ProcessErrorEventArgs args)
         {
             Console.WriteLine(args.Exception.ToString());
             return Task.CompletedTask;
