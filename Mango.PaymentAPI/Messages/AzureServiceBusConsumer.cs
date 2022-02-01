@@ -53,7 +53,7 @@ namespace Mango.PaymentAPI.Messages
 
             try
             {
-                await _messageBus.PublishMessage(updatePaymentResultMessage, orderPaymentProcessTopic);
+                await _messageBus.PublishMessage(updatePaymentResultMessage, orderUpdatePaymentResultTopic);
                 await args.CompleteMessageAsync(args.Message);
             }
             catch (Exception)
