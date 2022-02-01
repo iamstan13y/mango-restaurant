@@ -17,10 +17,11 @@ namespace Mango.PaymentAPI.Messages
         private readonly string orderPaymentProcessTopic;
         private readonly string orderUpdatePaymentResultTopic;
 
-        private ServiceBusProcessor orderPaymentProcessor;
+        private readonly ServiceBusProcessor orderPaymentProcessor;
         private readonly IProcessPayment _processPayment;
         private readonly IConfiguration _configuration;
         private readonly IMessageBus _messageBus;
+
         public AzureServiceBusConsumer(IProcessPayment processPayment, IConfiguration configuration, IMessageBus messageBus)
         {
             _processPayment = processPayment;
@@ -75,7 +76,7 @@ namespace Mango.PaymentAPI.Messages
             await orderPaymentProcessor.DisposeAsync();
         }
 
-        Task ErrorHandler(ProcessErrorEventArgs args)
+        private Task ErrorHandler(ProcessErrorEventArgs args)
         {
             Console.WriteLine(args.Exception.ToString());
             return Task.CompletedTask;
