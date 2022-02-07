@@ -4,8 +4,6 @@ using Mango.EmailAPI.Models.Repository;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -36,6 +34,7 @@ namespace Mango.EmailAPI.Messaging
 
             orderUpdatePaymentStatusProcessor = client.CreateProcessor(orderUpdatePaymentResultTopic, subscriptionEmail);
         }
+
         private async Task OnOrderPaymentUpdateReceived(ProcessMessageEventArgs args)
         {
             var messsage = args.Message;
@@ -50,7 +49,6 @@ namespace Mango.EmailAPI.Messaging
             }
             catch (Exception ex)
             {
-
             }
         }
 

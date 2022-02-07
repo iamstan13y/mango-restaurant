@@ -2,8 +2,6 @@
 using Mango.EmailAPI.Models.Data;
 using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Mango.EmailAPI.Models.Repository
@@ -16,7 +14,7 @@ namespace Mango.EmailAPI.Models.Repository
         {
             _context = context;
         }
-         
+
         public async Task SendAndLogEmail(UpdatePaymentResultMessage message)
         {
             var emailLog = new EmailLog()

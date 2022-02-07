@@ -2,16 +2,13 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Mango.EmailAPI.Extensions
 {
     public static class ApplicationBuilderExtensions
     {
         public static IAzureServiceBusConsumer ServiceBusConsumer { get; set; }
+
         public static IApplicationBuilder UseAzureServiceBusConsumer(this IApplicationBuilder app)
         {
             ServiceBusConsumer = app.ApplicationServices.GetService<IAzureServiceBusConsumer>();
