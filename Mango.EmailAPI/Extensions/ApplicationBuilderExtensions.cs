@@ -1,11 +1,13 @@
-﻿using System;
+﻿using Mango.EmailAPI.Messaging;
+using Microsoft.AspNetCore.Builder;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace Mango.EmailAPI.Extensions
 {
-    public class ApplicationBuilderExtensions
+    public static class ApplicationBuilderExtensions
     {
         public static IAzureServiceBusConsumer ServiceBusConsumer { get; set; }
         public static IApplicationBuilder UseAzureServiceBusConsumer(this IApplicationBuilder app)

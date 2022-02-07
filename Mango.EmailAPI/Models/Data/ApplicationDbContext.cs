@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -11,7 +12,6 @@ namespace Mango.EmailAPI.Models.Data
         {
         }
 
-        public DbSet<OrderHeader> OrderHeaders { get; set; }
-        public DbSet<OrderDetails> OrderDetails { get; set; }
+        public DbSet<EmailLog> EmailLogs { get; set; }
     }
 }
