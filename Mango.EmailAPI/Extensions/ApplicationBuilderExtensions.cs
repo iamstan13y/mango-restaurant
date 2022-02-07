@@ -1,5 +1,7 @@
 ﻿using Mango.EmailAPI.Messaging;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,5 +32,4 @@ namespace Mango.EmailAPI.Extensions
             ServiceBusConsumer.Stop();
         }
     }
-}
 }
