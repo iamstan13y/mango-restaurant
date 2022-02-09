@@ -1,8 +1,6 @@
-﻿using Mango.MessageBus;
-
-namespace Mango.PaymentAPI.Models
+﻿namespace Mango.EmailAPI.Messages
 {
-    public class UpdatedPaymentResultMessage : BaseMessage
+    public class UpdatePaymentResultMessage
     {
         public int OrderId { get; set; }
         public bool Status { get; set; }
