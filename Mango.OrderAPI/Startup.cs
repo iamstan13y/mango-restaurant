@@ -4,6 +4,7 @@ using Mango.OrderAPI.Extensions;
 using Mango.OrderAPI.Messages;
 using Mango.OrderAPI.Models.Data;
 using Mango.OrderAPI.Models.Repository;
+using Mango.OrderAPI.RabbitMQSender;
 using Mango.OrderAPI.Utility;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -46,6 +47,7 @@ namespace Mango.OrderAPI
             services.AddSingleton(new OrderRepository(optionsBuilder.Options));
             services.AddSingleton<IAzureServiceBusConsumer, AzureServiceBusConsumer>();
             services.AddSingleton<IMessageBus, AzureServiceBusMessageBus>();
+            services.AddSingleton<IRabbitMQOrderMessageSender, RabbitMQOrderMessageSender>();
 
             services.AddControllers();
 
