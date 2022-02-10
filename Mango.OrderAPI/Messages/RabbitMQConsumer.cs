@@ -1,4 +1,5 @@
-﻿using Mango.OrderAPI.Models.Repository;
+﻿using Mango.OrderAPI.Models;
+using Mango.OrderAPI.Models.Repository;
 using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json;
 using RabbitMQ.Client;
@@ -54,7 +55,61 @@ namespace Mango.OrderAPI.Messages
 
         private async Task HandleMessage(CheckoutHeaderDto checkoutHeaderDto)
         {
-            throw new NotImplementedException();
+            var orderHeader = new OrderHeader()
+            {
+                CardNumber = checkoutHeaderDto.CardNumber,
+                CartTotalItems = checkoutHeaderDto.CartTotalItems,
+                CouponCode = checkoutHeaderDto.CouponCode,
+                CVV = checkoutHeaderDto.CVV,
+                DiscountTotal = checkoutHeaderDto.DiscountTotal,
+                Email = checkoutHeaderDto.Email,
+                ExpiryMonthYear = checkoutHeaderDto.ExpiryMonthYear,
+                FirstName = checkoutHeaderDto.FirstName,
+                LastName = checkoutHeaderDto.LastName,
+                OrderTotal = checkoutHeaderDto.OrderTotal,
+                PaymentStatus = false,
+                Phone = checkoutHeaderDto.Phone,
+                PickupDate = checkoutHeaderDto.PickupDate,
+                UserId = checkoutHeaderDto.UserId,
+                OrderTime = DateTime.Now,
+                OrderDetails = new()
+            };
+
+            foreach (var detailList in checkoutHeaderDto.CartDetails)
+            {
+                OrderDetails orderDetails = new()
+                {
+                    ProductId = detailList.ProductId,
+                    ProductName = detailList.Product.Name,
+                    ProductPrice = detailList.Product.Price,
+                    Count = detailList.Count
+                };
+
+                orderHeader.CartTotalItems += detailList.Count;
+                orderHeader.OrderDetails.Add(orderDetails);
+            }
+
+            await _orderRepository.AddOrder(orderHeader);
+
+            PaymentRequestMessage paymentRequestMessage = new()
+            {
+                Name = orderHeader.FirstName + " " + orderHeader.LastName,
+                CardNumber = orderHeader.CardNumber,
+                CVV = orderHeader.CVV,
+                ExpiryMonthYear = orderHeader.ExpiryMonthYear,
+                OrderId = orderHeader.OrderHeaderId,
+                OrderTotal = orderHeader.OrderTotal,
+                Email = orderHeader.Email
+            };
+
+            try
+            {
+                
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
         }
     }
 }
