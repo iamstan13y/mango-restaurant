@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ShoppingCart.API.RabbitMQSender
 {
-    interface IRabbitMQCartMessageSender
+    public interface IRabbitMQCartMessageSender
     {
         void SendMessage(BaseMessage baseMessage, string queueName);
     }
