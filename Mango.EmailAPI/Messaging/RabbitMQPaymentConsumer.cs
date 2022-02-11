@@ -36,6 +36,7 @@ namespace Mango.EmailAPI.Messaging
             _channel = _connection.CreateModel();
             _channel.ExchangeDeclare(ExchangeName, ExchangeType.Fanout);
             queueName = _channel.QueueDeclare().QueueName;
+            _channel.QueueBind(queueName, ExchangeName, string.Empty);
         }
 
         protected override Task ExecuteAsync(CancellationToken stoppingToken)
