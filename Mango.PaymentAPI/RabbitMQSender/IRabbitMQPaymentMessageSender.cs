@@ -8,6 +8,6 @@ namespace Mango.PaymentAPI.RabbitMQSender
 {
     public interface IRabbitMQPaymentMessageSender
     {
-        void SendMessage(BaseMessage baseMessage, string queueName);
+        void SendMessage(BaseMessage baseMessage);
     }
 }

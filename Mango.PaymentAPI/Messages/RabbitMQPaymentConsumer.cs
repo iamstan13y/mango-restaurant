@@ -52,7 +52,7 @@ namespace Mango.PaymentAPI.Messages
                 _channel.BasicAck(ea.DeliveryTag, false);
             };
 
-            _channel.BasicConsume("checkoutqueue", false, consumer);
+            _channel.BasicConsume("orderpaymentprocesstopic", false, consumer);
 
             return Task.CompletedTask;
         }
@@ -70,7 +70,7 @@ namespace Mango.PaymentAPI.Messages
 
             try
             {
-                
+                _rabbitMQPaymentMessageSender.SendMessage(updatePaymentResultMessage);
             }
             catch (Exception)
             {
