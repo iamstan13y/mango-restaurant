@@ -5,6 +5,7 @@ namespace Mango.OrderAPI.Messages
     public interface IAzureServiceBusConsumer
     {
         Task Start();
+
         Task Stop();
     }
 }

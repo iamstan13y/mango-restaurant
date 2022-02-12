@@ -4,8 +4,6 @@ using Newtonsoft.Json;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -20,7 +18,7 @@ namespace Mango.OrderAPI.Messages
         private const string PaymentOrderUpdateQueueName = "PaymentOrderUpdateQueueName";
 
         private readonly OrderRepository _orderRepository;
-        string queueName = string.Empty;
+        private string queueName = string.Empty;
 
         public RabbitMQPaymentConsumer(OrderRepository orderRepository)
         {
