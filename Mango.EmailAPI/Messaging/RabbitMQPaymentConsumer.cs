@@ -17,7 +17,9 @@ namespace Mango.EmailAPI.Messaging
     {
         private IConnection _connection;
         private IModel _channel;
-        private const string ExchangeName = "PublishSubscribePaymentUpdate_Exchange";
+        private const string ExchangeName = "DirectPaymentUpdate_Exchange";
+        private const string PaymentEmailUpdateQueueName = "PaymentEmailUpdateQueueName";
+
         private readonly EmailRepository _emailRepository;
         string queueName = string.Empty;
 
@@ -34,9 +36,9 @@ namespace Mango.EmailAPI.Messaging
 
             _connection = factory.CreateConnection();
             _channel = _connection.CreateModel();
-            _channel.ExchangeDeclare(ExchangeName, ExchangeType.Fanout);
-            queueName = _channel.QueueDeclare().QueueName;
-            _channel.QueueBind(queueName, ExchangeName, string.Empty);
+            _channel.ExchangeDeclare(ExchangeName, ExchangeType.Direct);
+            _channel.QueueDeclare(PaymentEmailUpdateQueueName, false, false, false, null);
+            _channel.QueueBind(PaymentEmailUpdateQueueName, ExchangeName, "PaymentEmail");
         }
 
         protected override Task ExecuteAsync(CancellationToken stoppingToken)
@@ -53,7 +55,7 @@ namespace Mango.EmailAPI.Messaging
                 _channel.BasicAck(ea.DeliveryTag, false);
             };
 
-            _channel.BasicConsume(queueName, false, consumer);
+            _channel.BasicConsume(PaymentEmailUpdateQueueName, false, consumer);
 
             return Task.CompletedTask;
         }
