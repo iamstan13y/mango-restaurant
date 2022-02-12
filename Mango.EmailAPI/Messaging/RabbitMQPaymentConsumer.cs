@@ -5,8 +5,6 @@ using Newtonsoft.Json;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -21,7 +19,7 @@ namespace Mango.EmailAPI.Messaging
         private const string PaymentEmailUpdateQueueName = "PaymentEmailUpdateQueueName";
 
         private readonly EmailRepository _emailRepository;
-        string queueName = string.Empty;
+        private string queueName = string.Empty;
 
         public RabbitMQPaymentConsumer(EmailRepository emailRepository)
         {
