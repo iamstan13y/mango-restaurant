@@ -1,8 +1,6 @@
-﻿using Mango.Web.Models;
+﻿using Mango.Web.Enums;
+using Mango.Web.Models;
 using Mango.Web.Services.IServices;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -10,20 +8,39 @@ namespace Mango.Web.Services
 {
     public class CartService : BaseService, ICartService
     {
-        private readonly IHttpClientFactory _clientFactory;
-
         public CartService(IHttpClientFactory clientFactory) : base(clientFactory)
         {
-            _clientFactory = clientFactory;
         }
 
         public async Task<T> AddToCartAsync<T>(CartDto cartDto, string token = null)
         {
             return await SendAsync<T>(new ApiRequest()
             {
-                ApiType = SD.ApiType.POST,
+                ApiType = ApiType.POST,
                 Data = cartDto,
-                Url = SD.ShoppingCartAPIBase + "api/cart/AddCart",
+                Url = SD.ShoppingCartAPIBase + "/api/cart/AddCart",
+                AccessToken = token
+            });
+        }
+
+        public async Task<T> ApplyCouponAsync<T>(CartDto cartDto, string token = null)
+        {
+            return await SendAsync<T>(new ApiRequest()
+            {
+                ApiType = ApiType.POST,
+                Data = cartDto,
+                Url = SD.ShoppingCartAPIBase + "/api/cart/ApplyCoupon/",
+                AccessToken = token
+            });
+        }
+
+        public async Task<T> CheckoutAsync<T>(CartHeaderDto cartHeader, string token = null)
+        {
+            return await SendAsync<T>(new ApiRequest()
+            {
+                ApiType = ApiType.POST,
+                Data = cartHeader,
+                Url = SD.ShoppingCartAPIBase + "/api/cart/checkout/",
                 AccessToken = token
             });
         }
@@ -32,8 +49,18 @@ namespace Mango.Web.Services
         {
             return await SendAsync<T>(new ApiRequest()
             {
-                ApiType = SD.ApiType.GET,
-                Url = SD.ShoppingCartAPIBase + "api/cart/GetCart" + userId,
+                ApiType = ApiType.GET,
+                Url = SD.ShoppingCartAPIBase + "/api/cart/GetCart/" + userId,
+                AccessToken = token
+            });
+        }
+
+        public async Task<T> RemoveCouponAsync<T>(string userId, string token = null)
+        {
+            return await SendAsync<T>(new ApiRequest()
+            {
+                ApiType = ApiType.DELETE,
+                Url = SD.ShoppingCartAPIBase + "/api/cart/RemoveCoupon/" + userId,
                 AccessToken = token
             });
         }
@@ -42,9 +69,8 @@ namespace Mango.Web.Services
         {
             return await SendAsync<T>(new ApiRequest()
             {
-                ApiType = SD.ApiType.POST,
-                Data = cartId,
-                Url = SD.ShoppingCartAPIBase + "api/cart/RemoveCart",
+                ApiType = ApiType.DELETE,
+                Url = SD.ShoppingCartAPIBase + "/api/cart/RemoveCart/" + cartId,
                 AccessToken = token
             });
         }
@@ -53,9 +79,9 @@ namespace Mango.Web.Services
         {
             return await SendAsync<T>(new ApiRequest()
             {
-                ApiType = SD.ApiType.POST,
+                ApiType = ApiType.POST,
                 Data = cartDto,
-                Url = SD.ShoppingCartAPIBase + "api/cart/UpdateCart",
+                Url = SD.ProductAPIBase + "/api/cart/UpdateCart",
                 AccessToken = token
             });
         }

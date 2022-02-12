@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using static Mango.Web.SD;
+﻿using Mango.Web.Enums;
 
 namespace Mango.Web.Models
 {

@@ -1,4 +1,5 @@
-﻿@model IEnumerable<ProductDto>
+﻿@model IEnumerable<Models.ProductDto>
+
 <form>
 
     <div class="container row">
@@ -21,14 +22,11 @@
                                     <a asp-action="Details" asp-route-productId="@product.ProductId"
                                        class="btn btn-success form-control">Details</a>
                                 </div>
-
                             </div>
-
                         </div>
                     </div>
                 </div>
             </div>
         }
-
     </div>
 </form>
