@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using ShoppingCart.API.Models.Dto;
 using ShoppingCart.API.Models.Messages;
 using ShoppingCart.API.Models.Repository;
+using ShoppingCart.API.RabbitMQSender;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -16,13 +17,15 @@ namespace ShoppingCart.API.Controllers
         private readonly ICartRepository _cartRepository;
         private readonly ICouponRepository _couponRepository;
         private readonly IMessageBus _messageBus;
+        private readonly IRabbitMQCartMessageSender _rabbitMQCartMessageSender;
         protected ResponseDto _response;
 
-        public CartController(ICartRepository cartRepository, ICouponRepository couponRepository, IMessageBus messageBus)
+        public CartController(ICartRepository cartRepository, ICouponRepository couponRepository, IMessageBus messageBus, IRabbitMQCartMessageSender rabbitMQCartMessageSender)
         {
             _couponRepository = couponRepository;
             _cartRepository = cartRepository;
             _messageBus = messageBus;
+            _rabbitMQCartMessageSender = rabbitMQCartMessageSender;
             _response = new();
         }
 
@@ -149,7 +152,12 @@ namespace ShoppingCart.API.Controllers
 
                 checkoutHeader.CartDetails = cartDto.CartDetails;
 
-                await _messageBus.PublishMessage(checkoutHeader, "checkoutqueue");
+                //Azure Service Bus
+                //await _messageBus.PublishMessage(checkoutHeader, "checkoutqueue");
+
+                //RabbitMQ
+                _rabbitMQCartMessageSender.SendMessage(checkoutHeader, "checkoutqueue");
+
                 await _cartRepository.ClearCart(checkoutHeader.UserId);
             }
             catch (Exception ex)

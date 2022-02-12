@@ -30,7 +30,7 @@ namespace Mango.EmailAPI
             });
 
             services.AddScoped<IEmailRepository, EmailRepository>();
-
+            services.AddHostedService<RabbitMQPaymentConsumer>();
             var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
             optionsBuilder.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
             services.AddSingleton(new EmailRepository(optionsBuilder.Options));

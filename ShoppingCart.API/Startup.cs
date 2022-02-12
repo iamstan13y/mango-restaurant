@@ -10,6 +10,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using ShoppingCart.API.Models.Data;
 using ShoppingCart.API.Models.Repository;
+using ShoppingCart.API.RabbitMQSender;
 using ShoppingCart.API.Utility;
 using System;
 using System.Collections.Generic;
@@ -41,7 +42,8 @@ namespace ShoppingCart.API
             services.AddHttpClient<ICouponRepository, CouponRepository>(u => u.BaseAddress = 
                 new Uri(Configuration["ServiceUrls:CouponAPI"]));
             services.AddSingleton<IMessageBus, AzureServiceBusMessageBus>();
-          
+            services.AddSingleton<IRabbitMQCartMessageSender, RabbitMQCartMessageSender>();
+
             services.AddControllers();
 
             services.AddAuthentication("Bearer")
