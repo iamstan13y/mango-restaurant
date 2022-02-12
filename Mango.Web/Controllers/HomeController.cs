@@ -1,14 +1,14 @@
 using Mango.Web.Models;
 using Mango.Web.Services.IServices;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Authentication;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Mango.Web.Controllers
 {
@@ -49,7 +49,7 @@ namespace Mango.Web.Controllers
             }
             return View(model);
         }
-        
+
         [HttpPost]
         [ActionName("Details")]
         [Authorize]

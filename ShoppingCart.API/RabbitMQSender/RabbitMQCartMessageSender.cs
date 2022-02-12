@@ -2,10 +2,7 @@
 using Newtonsoft.Json;
 using RabbitMQ.Client;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace ShoppingCart.API.RabbitMQSender
 {
@@ -44,11 +41,9 @@ namespace ShoppingCart.API.RabbitMQSender
                     Password = _password
                 };
                 _connection = factory.CreateConnection();
-
             }
             catch (Exception)
             {
-
             }
         }
 

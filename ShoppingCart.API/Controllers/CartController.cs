@@ -124,14 +124,14 @@ namespace ShoppingCart.API.Controllers
             }
             return _response;
         }
-        
+
         [HttpPost("Checkout")]
         public async Task<object> Checkout(CheckoutHeaderDto checkoutHeader)
         {
             try
             {
                 CartDto cartDto = await _cartRepository.GetCartByUserId(checkoutHeader.UserId);
-                
+
                 if (cartDto == null)
                 {
                     return BadRequest();

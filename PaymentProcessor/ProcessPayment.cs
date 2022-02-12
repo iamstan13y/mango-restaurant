@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace PaymentProcessor
+﻿namespace PaymentProcessor
 {
     public class ProcessPayment : IProcessPayment
     {
