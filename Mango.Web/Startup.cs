@@ -28,7 +28,7 @@ namespace Mango.Web
             SD.ProductAPIBase = Configuration["ServiceUrls:ProductAPI"];
             SD.ShoppingCartAPIBase = Configuration["ServiceUrls:ShoppingCartAPI"];
             SD.CouponAPIBase = Configuration["ServiceUrls:CouponAPI"];
-            
+
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<ICartService, CartService>();
             services.AddScoped<ICouponService, CouponService>();
@@ -41,7 +41,8 @@ namespace Mango.Web
                 options.DefaultChallengeScheme = "oidc";
             })
                .AddCookie("Cookies", c => c.ExpireTimeSpan = TimeSpan.FromMinutes(10))
-               .AddOpenIdConnect("oidc", options => {
+               .AddOpenIdConnect("oidc", options =>
+               {
                    options.Authority = Configuration["ServiceUrls:IdentityServer"];
                    options.GetClaimsFromUserInfoEndpoint = true;
                    options.ClientId = "mango";
